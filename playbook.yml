@@ -25,7 +25,7 @@
     - name: Read build number
       # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
       become: false
-      command: successful_build=$(sed '4!d' /var/lib/jenkin/jobs/spring-petclinic/branches/main/builds/permalinks)
+      command: chdir=/var/lib/jenkin/jobs/spring-petclinic/branches/main/builds/ successful_build=$(sed '4!d' permalinks)
 
     - name: Display the build
       ansible.builtin.debug:
