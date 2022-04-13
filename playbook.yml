@@ -16,7 +16,7 @@
     - name: Store current directory
       # shell: current=$(pwd)
       become: false
-      local_action: pwd
+      local_action: command pwd
       register: current
 
     - name: Display current directory
