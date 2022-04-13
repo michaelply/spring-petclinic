@@ -14,11 +14,14 @@
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
 
     - name: Store current directory
-      shell: current=$(pwd)
+      # shell: current=$(pwd)
+      become: false
+      local_action: pwd
+      register: current
 
     - name: Display current directory
       ansible.builtin.debug:
-        msg: We are at {{ current }} !!!"
+        msg: We are at {{ current.stdout }} !!!"
 
     # - name: Read build number
     #   shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
