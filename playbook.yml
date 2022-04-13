@@ -13,9 +13,14 @@
       ansible.builtin.debug:
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
 
+    - name: Display current directory
+      shell: pwd
+
     - name: Read build number
+      shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
+      shell: build_number="$(cut -d' ' -f2 <<<"$successful_build")"
       ansible.builtin.debug:
-        msg: "Hello User {{ currentBuild.number }} from Jenkins and Ansible!!"
+        msg: "Hello User {{ build_number }} from Jenkins and Ansible!!"
 
     - name: Copying the Directory and its contents
       become: true 
