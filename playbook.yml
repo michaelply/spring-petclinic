@@ -1,6 +1,6 @@
 ---
 
-- name: Run the test playbook
+- name: Deploy petclinic
   gather_facts: false
   hosts: server1
   tasks:
@@ -12,6 +12,13 @@
     - name: Display the User name
       ansible.builtin.debug:
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
+
+    - name: Copying the Directory and its contents
+      become: true 
+      copy:
+        src: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
+        dest: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
+
 
     - name: Run jar application
       shell: nohup java -Dserver.port=8888 -jar /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
