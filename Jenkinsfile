@@ -9,6 +9,11 @@ pipeline {
             steps {
                 sh 'ansible-playbook playbook.yml'
             } 
+        post {
+            success {
+                sh 'echo "success"'
+            }
+        }
       }
     }
 }
