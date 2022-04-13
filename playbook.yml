@@ -13,20 +13,25 @@
       ansible.builtin.debug:
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
 
-    - name: Store current directory
+    - name: Change current directory
       # shell: current=$(pwd)
       become: false
-      local_action: command pwd
+      local_action: command cd /
       register: current
 
     - name: Display current directory
       ansible.builtin.debug:
         msg: We are at {{ current.stdout }} !!!"
 
-    # - name: Read build number
-    #   shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
-    #   ansible.builtin.debug:
-    #     msg: "Successful build {{ successful_build }} !!"
+    - name: Read build number
+      # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
+      become: false
+      local_action: command sed '4!d' /var/lib/jenkins/jobs/spring-petclinic/branches/main/builds/permalinks
+      register: successful_build
+
+    - name: Display the build
+      ansible.builtin.debug:
+        msg: "Successful build {{ successful_build }} !!"
 
     # - name: Store build number
     #   shell: build_number="$(cut -d' ' -f2 <<<"$successful_build")"
