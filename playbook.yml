@@ -13,6 +13,10 @@
       ansible.builtin.debug:
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
 
+    - name: Read build number
+      ansible.builtin.debug:
+        msg: "Hello User {{ currentBuild.number }} from Jenkins and Ansible!!"
+
     - name: Copying the Directory and its contents
       become: true 
       copy:
