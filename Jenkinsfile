@@ -1,13 +1,14 @@
 pipeline {
     agent any
     stages {
-      stage("build & SonarQube analysis") {
+      stage("Execute Ansible") {
         agent any
-        steps {
-            withSonarQubeEnv('mysonar') {
-                sh './mvnw clean package sonar:sonar'
-            }
-        }
+            // steps {
+            //     ansiblePlaybook installation: 'Ansible', inventory: 'dev.inv', playbook: 'test_playbook.yml'
+            // } 
+            steps {
+                sh 'ansiblePlaybook test_playbook.yml'
+            } 
         post {
             success {
                 archiveArtifacts 'target/*.jar'
