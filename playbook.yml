@@ -25,8 +25,7 @@
     - name: Read build number
       # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
       become: false
-      local_action: command sed '4!d' /var/lib/jenkins/jobs/spring-petclinic/branches/main/builds/permalinks
-      register: successful_build
+      command: successful_build=$(sed '4!d' branches/main/builds/permalinks)
 
     - name: Display the build
       ansible.builtin.debug:
@@ -36,6 +35,16 @@
     #   shell: build_number="$(cut -d' ' -f2 <<<"$successful_build")"
     #   ansible.builtin.debug:
     #     msg: "Build number {{ build_number }} !!"
+
+    # - name: Store build number
+    #   # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
+    #   become: false
+    #   local_action: command build_number="$(cut -d' ' -f2 <<<"$successful_build")"
+    #   register: build_number
+
+    # - name: Display the build
+    #   ansible.builtin.debug:
+    #     msg: "Build number {{ build_number.stdout }} !!"
 
     - name: Copying the Directory and its contents
       become: true 
