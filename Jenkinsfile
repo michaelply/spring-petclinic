@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        copyArtifactPermission();
+    }
     stages {
       stage("Maven Build") {
         agent any
