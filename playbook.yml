@@ -12,3 +12,6 @@
     - name: Display the User name
       ansible.builtin.debug:
         msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
+
+    - name: Run jar application
+      shell: java -Dserver.port=8888 -jar /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar

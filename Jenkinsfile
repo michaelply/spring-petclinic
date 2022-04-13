@@ -7,13 +7,8 @@ pipeline {
             //     ansiblePlaybook installation: 'Ansible', inventory: 'dev.inv', playbook: 'test_playbook.yml'
             // } 
             steps {
-                sh 'ansible-playbook test_playbook.yml'
+                sh 'ansible-playbook playbook.yml'
             } 
-        post {
-            success {
-                archiveArtifacts 'target/*.jar'
-            }
-        }
       }
     }
 }
