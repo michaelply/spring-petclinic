@@ -1,7 +1,7 @@
 pipeline {
     agent any
     options {
-        copyArtifactPermission();
+        copyArtifactPermission('spring-petclinic');
     }
     stages {
       stage("Maven Build") {
