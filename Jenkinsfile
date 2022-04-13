@@ -12,6 +12,18 @@ pipeline {
             }
         }
       }
+
+      stage("Copy Artifact") {
+            steps {
+                script {
+                    step ([$class: 'CopyArtifact',
+                        projectName: 'spring-petclinic',
+                        filter: "target/*.jar",
+                        target: 'artifact']);
+                }
+            } 
+      }
+
       stage("Execute Ansible") {
         agent any
             // steps {
