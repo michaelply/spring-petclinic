@@ -16,7 +16,7 @@
     - name: Change current directory
       # shell: current=$(pwd)
       become: false
-      local_action: command cd /
+      local_action: command cd ../..
       register: current
 
     - name: Display current directory
