@@ -1,6 +1,17 @@
 pipeline {
     agent any
     stages {
+      stage("Maven Build") {
+        agent any
+            steps {
+                sh './mvnw clean package'
+            } 
+        post {
+            success {
+                archiveArtifacts 'target/*.jar'
+            }
+        }
+      }
       stage("Execute Ansible") {
         agent any
             // steps {

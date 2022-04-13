@@ -19,7 +19,6 @@
         src: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
         dest: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
 
-
     - name: Run jar application
       shell: nohup java -Dserver.port=8888 -jar /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
       async: 10
