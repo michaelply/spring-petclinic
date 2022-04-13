@@ -7,7 +7,7 @@ pipeline {
             //     ansiblePlaybook installation: 'Ansible', inventory: 'dev.inv', playbook: 'test_playbook.yml'
             // } 
             steps {
-                sh 'ansiblePlaybook test_playbook.yml'
+                sh 'ansible-playbook test_playbook.yml'
             } 
         post {
             success {
