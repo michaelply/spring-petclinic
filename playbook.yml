@@ -4,53 +4,11 @@
   gather_facts: false
   hosts: server1
   tasks:
-    - name: Get the username running this playbook
-      become: false
-      local_action: command whoami
-      register: username_on_the_host
-
-    - name: Display the User name
-      ansible.builtin.debug:
-        msg: "Hello User {{ username_on_the_host.stdout }} from Jenkins and Ansible!!"
-
-    - name: Change current directory
-      # shell: current=$(pwd)
-      become: true
-      command: chdir=/home ls
-
-    # - name: Display current directory
-    #   ansible.builtin.debug:
-    #     msg: We are at {{ current.stdout }} !!!"
-
-    - name: Read build number
-      # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
-      become: false
-      command: chdir=/var/lib/jenkin/jobs/spring-petclinic/branches/main/builds/ successful_build=$(sed '4!d' permalinks)
-
-    - name: Display the build
-      ansible.builtin.debug:
-        msg: "Successful build {{ successful_build }} !!"
-
-    # - name: Store build number
-    #   shell: build_number="$(cut -d' ' -f2 <<<"$successful_build")"
-    #   ansible.builtin.debug:
-    #     msg: "Build number {{ build_number }} !!"
-
-    # - name: Store build number
-    #   # shell: successful_build=$(sed '4!d' branches/main/builds/permalinks)
-    #   become: false
-    #   local_action: command build_number="$(cut -d' ' -f2 <<<"$successful_build")"
-    #   register: build_number
-
-    # - name: Display the build
-    #   ansible.builtin.debug:
-    #     msg: "Build number {{ build_number.stdout }} !!"
-
     - name: Copying the Directory and its contents
       become: true 
       copy:
-        src: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
-        dest: /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
+        src: /var/lib/jenkins/workspace/spring-petclinic_main/artifact/target/spring-petclinic-2.6.0-SNAPSHOT.jar
+        dest: /home/vagrant/devops/spring-petclinic/artifact/spring-petclinic-2.6.0-SNAPSHOT.jar
 
     - name: Run jar application
       shell: nohup java -Dserver.port=8888 -jar /home/vagrant/devops/spring-petclinic/spring-petclinic-2.6.0-SNAPSHOT.jar
